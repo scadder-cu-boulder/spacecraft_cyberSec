@@ -46,6 +46,7 @@ class DataLinkLayerEncoderBC:
         msg = msg + '{0:04b}'.format(int(char7))
 
         print(msg)
+        return msg
 
 
     def build_data_word(self, data_word):

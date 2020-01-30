@@ -1,6 +1,6 @@
 class DataLinkLayerDecoderRT:
 
-    def decode_command_word(self, cmd_message):
+    def decode_cmd_word(self, cmd_message):
         cmd_wd = ''
         cmd_wd = cmd_wd + cmd_message[3]
 
