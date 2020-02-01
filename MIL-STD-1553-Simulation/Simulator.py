@@ -4,5 +4,5 @@ from Remote_Terminal.Data_Link_Layer_Decoder_RT import DataLinkLayerDecoderRT
 
 
 if __name__ == "__main__":
-    cmd_wd_frame = DataLinkLayerEncoderBC().build_cmd_word("01R0410")
+    cmd_wd_frame = DataLinkLayerEncoderBC().build_cmd_word("01R041F")
     DataLinkLayerDecoderRT().decode_cmd_word(cmd_wd_frame)
