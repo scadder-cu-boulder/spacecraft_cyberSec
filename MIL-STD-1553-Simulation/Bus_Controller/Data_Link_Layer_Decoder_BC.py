@@ -59,6 +59,7 @@ class DataLinkLayerDecoderBC:
             self.terminal_flag_bit = status_word_frame[18]
             status_word['terminal_flag_bit']=self.terminal_flag_bit
 
+            print(status_word)
             return status_word
         except Exception as ex:
             print("Exception while decoding a status word from on RT\n Exception:{}".format(str(ex)))
