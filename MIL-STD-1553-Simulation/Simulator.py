@@ -9,3 +9,6 @@ if __name__ == "__main__":
     DataLinkLayerDecoderRT().decode_cmd_word(cmd_wd_frame)
 
     status_wd_frame = DataLinkLayerEncoderRT().build_status_word("1F")
+
+    data_wd_frame_BC = DataLinkLayerEncoderBC().build_data_word("ABCD")
+    data_wd_frame_RT = DataLinkLayerEncoderRT().build_data_word("123F")

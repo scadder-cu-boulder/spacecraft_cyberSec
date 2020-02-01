@@ -62,5 +62,32 @@ class DataLinkLayerEncoderRT:
         except Exception as ex:
             print("Exception while encoding a status word on RT.\n Exception: {}".format(str(ex)))
 
+
+    """
+        This function takes hex input and converts it into 20 bit binary 
+        frame including 3 bit sync and 1 bit parity. So, it will take only
+        4 hex at a time. Hex are sent in string format.    
+    """
     def build_data_word(self, data_word):
-        print("jhsjd")
+        try:    
+            if len(data_word) > 4:
+                raise Exception("Invalid data input. Only 4 hex characters are allowed in data word frame")
+
+            # Following 3 bits represent sync bits
+            # Data word has negative sync hence the value 001
+
+            data_word_frame = '001'
+
+            # Following 4 characters in data words are converted into 4 bit binary
+            # and added to the data word frame
+            for character in data_word:
+                data_word_frame = data_word_frame + '{0:04b}'.format(int(character, 16))
+
+            # 1 bit parity is added at the end of the frame
+            data_word_frame = data_word_frame + '1'
+
+            print(data_word_frame)
+
+            return(data_word_frame)
+        except Exception as ex:
+            print("Exception while building a data word on BC\n Exception: {}".format(str(ex)))
