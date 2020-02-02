@@ -14,3 +14,5 @@ if __name__ == "__main__":
 
     data_wd_frame_BC = DataLinkLayerEncoderBC().build_data_word("ABCD")
     data_wd_frame_RT = DataLinkLayerEncoderRT().build_data_word("123F")
+
+    data_word_BC = DataLinkLayerDecoderBC().decode_data_word(data_wd_frame_BC)

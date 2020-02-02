@@ -50,4 +50,15 @@ class DataLinkLayerDecoderRT:
 
 
     def decode_data_word(self, data_word_frame):
-        print("")
+        try:
+            # 3 bits Sync and 1 bit parity bit are ignored for decoding 
+            # as it does not affect any data that is necessary
+            data_word = ''
+
+            for i in range(3,len(data_word_frame)-4,4):
+                data_set = data_word_frame[i:i+4]
+                data_word = data_word + str(hex(int(data_set,2)))[2:]
+            print(data_word)
+            return data_word
+        except Exception as ex:
+            print("Exception while decoding a data word from on RT\n Exception:{}".format(str(ex)))
