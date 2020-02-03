@@ -5,6 +5,8 @@ from Remote_Terminal.Data_Link_Layer_Decoder_RT import DataLinkLayerDecoderRT
 from Remote_Terminal.Data_Link_Layer_Encoder_RT import DataLinkLayerEncoderRT
 from Bus_Controller.Data_Link_Layer_Decoder_BC import DataLinkLayerDecoderBC
 
+from Remote_Terminal.Mode_Code_Analyzer import ModeCodeAnalyzer
+
 if __name__ == "__main__":
     cmd_wd_frame = DataLinkLayerEncoderBC().build_cmd_word("01R041F")
     DataLinkLayerDecoderRT().decode_cmd_word(cmd_wd_frame)
@@ -16,3 +18,5 @@ if __name__ == "__main__":
     data_wd_frame_RT = DataLinkLayerEncoderRT().build_data_word("123F")
 
     data_word_BC = DataLinkLayerDecoderBC().decode_data_word(data_wd_frame_BC)
+
+    ModeCodeAnalyzer().analyze_mode_code("01T1F02")
