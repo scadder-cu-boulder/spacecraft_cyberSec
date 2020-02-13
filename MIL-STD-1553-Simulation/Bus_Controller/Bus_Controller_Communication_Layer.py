@@ -43,3 +43,13 @@ class CommunicationLayerBC:
         #future implementation of checksum here
 
         return data_part_frame
+    
+    def receive_status_word(self, recd_status_frame):
+        recd_status_word = DataLinkLayerDecoderRT().decode_status_word(recd_status_frame)
+
+        return recd_status_word
+    
+    def receive_data_word(self, receive_data_word):
+        recd_data_word = DataLinkLayerDecoderRT().decode_data_word(recd_data_frame)
+
+        return recd_data_word
