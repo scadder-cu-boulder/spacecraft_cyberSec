@@ -53,7 +53,8 @@ class DataLinkLayerDecoderBC:
 
             # Next bit represents dynamic bus control accept bit
             self.dynamic_bus_control_accpt_bit = status_word_frame[17]
-            status_word['dynamic_bus_control_accpt_bit'] = self.dynamic_bus_control_accpt_bit
+            status_word['dynamic_bus_control_accpt_bit'] = \
+                self.dynamic_bus_control_accpt_bit
 
             # Next bit represents terminal flag bit
             self.terminal_flag_bit = status_word_frame[18]
@@ -62,8 +63,8 @@ class DataLinkLayerDecoderBC:
             print(status_word)
             return status_word
         except Exception as ex:
-            print("Exception while decoding a status word from on RT\n Exception:{}".format(
-                str(ex)))
+            print("Exception while decoding a status word from on RT")
+            print("    Exception:{}".format(str(ex)))
 
     def decode_data_word(self, data_word_frame):
         try:
@@ -77,5 +78,5 @@ class DataLinkLayerDecoderBC:
             print(data_word)
             return data_word
         except Exception as ex:
-            print("Exception while decoding a data word from on RT\n Exception:{}".format(
-                str(ex)))
+            print("Exception while decoding a data word from on RT")
+            print("    Exception:{}".format(str(ex)))

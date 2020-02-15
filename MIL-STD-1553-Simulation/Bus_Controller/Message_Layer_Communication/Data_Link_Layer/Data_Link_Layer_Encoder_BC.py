@@ -11,9 +11,10 @@ class DataLinkLayerEncoderBC:
             return True
 
     """
-        This function constructs a 20 bit binary with a command word. 
+        This function constructs a 20 bit binary with a command word.
         It follows a specific format of command word
-        | RT Address | R/T | Subaddress/Mode Code Representator | Word Count/Mode Code | 
+        | RT Address | R/T | Subaddress/Mode Code Representator
+        | Word Count/Mode Code |
         Everything except R/T is considered 5 bit Hex character
     """
 
@@ -47,7 +48,8 @@ class DataLinkLayerEncoderBC:
 
             # Next 2 characters from input represent 5 bit Subaddress
             # or Mode code representators.
-            # Input value of 0x00 or 0x1f says that next 5 bits will be a Mode Code
+            # Input value of 0x00 or 0x1f says that
+            # next 5 bits will be a Mode Code
             # Structure is same as RT address.
             char4 = cmd_word[3]
             if not self.__char_check(char4):
@@ -57,7 +59,8 @@ class DataLinkLayerEncoderBC:
             char5 = cmd_word[4]
             cmd_word_frame = cmd_word_frame + '{0:04b}'.format(int(char5, 16))
 
-            # Next 2 characters from input represent 5 bit Word Count or Mode Code
+            # Next 2 characters from input represent 5
+            # bit Word Count or Mode Code
             # depending on the last 5 bits from the message.
             # Structure is again same as RT address.
             char6 = cmd_word[5]
@@ -74,27 +77,28 @@ class DataLinkLayerEncoderBC:
             print(cmd_word_frame)
             return cmd_word_frame
         except Exception as ex:
-            print(
-                "Exception while creating Command Word Frame.\n Exception:{}".format(str(ex)))
+            print("Exception while creating Command Word Frame.")
+            print("    Exception:{}".format(str(ex)))
 
     """
-        This function takes hex input and converts it into 20 bit binary 
+        This function takes hex input and converts it into 20 bit binary
         frame including 3 bit sync and 1 bit parity. So, it will take only
-        4 hex at a time. Hex are sent in string format.    
+        4 hex at a time. Hex are sent in string format.
     """
 
     def build_data_word(self, data_word):
         try:
             if len(data_word) > 4:
-                raise Exception(
-                    "Invalid data input. Only 4 hex characters are allowed in data word frame")
+                raise Exception("Invalid data input. Only 4 hex characters are\
+                    allowed in data word frame")
 
             # Following 3 bits represent sync bits
             # Data word has negative sync hence the value 001
 
             data_word_frame = '001'
 
-            # Following 4 characters in data words are converted into 4 bit binary
+            # Following 4 characters in data words
+            # are converted into 4 bit binary
             # and added to the data word frame
             for character in data_word:
                 data_word_frame = data_word_frame + \
@@ -107,5 +111,5 @@ class DataLinkLayerEncoderBC:
 
             return(data_word_frame)
         except Exception as ex:
-            print(
-                "Exception while building a data word on BC\n Exception: {}".format(str(ex)))
+            print("Exception while building a data word on BC")
+            print("    Exception: {}".format(str(ex)))
