@@ -15,7 +15,7 @@ class DataLinkLayerEncoderRT:
         if not str.isdigit(character):
             print("Invalid address bits")
             return False
-        elif int(character) != 0  and int(character) != 1:
+        elif int(character) != 0 and int(character) != 1:
             print("Invalid address bits 1")
             return False
         else:
@@ -32,46 +32,49 @@ class DataLinkLayerEncoderRT:
             # Following 2 characters represent 5 bit RT Address.
             # Input is HEX. So, first HEX character represent a single bit
             # While the next HEX character represents 4 bits in the frame
-            # So, char1 can either be 0 and 1 and char2 can be 0x0-0xF 
+            # So, char1 can either be 0 and 1 and char2 can be 0x0-0xF
             char1 = rt_address[0]
             if not self.__char_check(char1):
                 exit()
             status_word_frame = status_word_frame + char1
 
             char2 = rt_address[1]
-            status_word_frame = status_word_frame + '{0:04b}'.format(int(char2, 16))
+            status_word_frame = status_word_frame + \
+                '{0:04b}'.format(int(char2, 16))
 
             # rest of the bits are static in this case and will be appended
             # in the final message.
             # The specific functionality can be implemented for each bit separately
 
             status_word_frame = status_word_frame + self.message_error_bit \
-                                + self.instrumentation_bit \
-                                + self.service_request_bit \
-                                + self.reserved_bits \
-                                + self.brdcst_received_bit \
-                                + self.busy_bit \
-                                + self.subsystem_flag_bit \
-                                + self.dynamic_bus_control_accpt_bit \
-                                + self.terminal_flag_bit \
-                                + self.parity_bit 
+                + self.instrumentation_bit \
+                + self.service_request_bit \
+                + self.reserved_bits \
+                + self.brdcst_received_bit \
+                + self.busy_bit \
+                + self.subsystem_flag_bit \
+                + self.dynamic_bus_control_accpt_bit \
+                + self.terminal_flag_bit \
+                + self.parity_bit
 
             print(status_word_frame)
 
             return status_word_frame
         except Exception as ex:
-            print("Exception while encoding a status word on RT.\n Exception: {}".format(str(ex)))
-
+            print(
+                "Exception while encoding a status word on RT.\n Exception: {}".format(str(ex)))
 
     """
         This function takes hex input and converts it into 20 bit binary 
         frame including 3 bit sync and 1 bit parity. So, it will take only
         4 hex at a time. Hex are sent in string format.    
     """
+
     def build_data_word(self, data_word):
-        try:    
+        try:
             if len(data_word) > 4:
-                raise Exception("Invalid data input. Only 4 hex characters are allowed in data word frame")
+                raise Exception(
+                    "Invalid data input. Only 4 hex characters are allowed in data word frame")
 
             # Following 3 bits represent sync bits
             # Data word has negative sync hence the value 001
@@ -81,7 +84,8 @@ class DataLinkLayerEncoderRT:
             # Following 4 characters in data words are converted into 4 bit binary
             # and added to the data word frame
             for character in data_word:
-                data_word_frame = data_word_frame + '{0:04b}'.format(int(character, 16))
+                data_word_frame = data_word_frame + \
+                    '{0:04b}'.format(int(character, 16))
 
             # 1 bit parity is added at the end of the frame
             data_word_frame = data_word_frame + '1'
@@ -90,4 +94,5 @@ class DataLinkLayerEncoderRT:
 
             return(data_word_frame)
         except Exception as ex:
-            print("Exception while building a data word on BC\n Exception: {}".format(str(ex)))
+            print(
+                "Exception while building a data word on BC\n Exception: {}".format(str(ex)))

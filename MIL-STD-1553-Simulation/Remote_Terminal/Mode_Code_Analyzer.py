@@ -6,7 +6,7 @@ class ModeCodeAnalyzer:
 
     def __check_if_mode_code(self, sub_address):
         if sub_address == '00' or sub_address == '1f':
-		    return True
+            return True
         else:
             return False
 
@@ -16,7 +16,8 @@ class ModeCodeAnalyzer:
             print("Command word does not contain Mode Code.")
             return
         mode_code_function_name = 'mode_code_0x' + cmd_word[-2:].lower()
-        mode_code_function = getattr(self, mode_code_function_name, lambda: "Invalid Mode Code")
+        mode_code_function = getattr(
+            self, mode_code_function_name, lambda: "Invalid Mode Code")
         return mode_code_function()
 
     def mode_code_0x00(self):
@@ -25,7 +26,7 @@ class ModeCodeAnalyzer:
             print("Invalid Command Word as this Mode Code needs T/R bit set")
         self.one_data_word_required = False
         self.broadcast_command_allowed = False
-    
+
     def mode_code_0x01(self):
         print("This mode code (0x01) is: \n  Synchronize")
         if not self.command_word[2] == "T":

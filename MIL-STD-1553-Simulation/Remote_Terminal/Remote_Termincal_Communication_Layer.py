@@ -1,9 +1,6 @@
-from Remote_Terminal.Data_Link_Layer_Decoder_RT import DataLinkLayerDecoderRT
-
-from Remote_Terminal.Data_Link_Layer_Encoder_RT import DataLinkLayerEncoderRT
-
-from Remote_Terminal.Mode_Code_Analyzer import ModeCodeAnalyzer
-
+from Data_Link_Layer_Decoder_RT import DataLinkLayerDecoderRT
+from Data_Link_Layer_Encoder_RT import DataLinkLayerEncoderRT
+from Mode_Code_Analyzer import ModeCodeAnalyzer
 class CommunicationLayerRT:
 
     def generate_data_parts(self, data_wd):
@@ -19,23 +16,23 @@ class CommunicationLayerRT:
         return data_wd_parts
 
     
-    def send_data_word(self, data_wd_part):
-        data_part_frame = DataLinkLayerEncoderBC().build_data_word(data_wd_part)
-        #future implementation of checksum here
+    # def send_data_word(self, data_wd_part):
+    #     data_part_frame = DataLinkLayerEncoderBC().build_data_word(data_wd_part)
+    #     #future implementation of checksum here
 
-        return data_part_frame
+    #     return data_part_frame
     
-    def receive_command_word(self, recd_command_frame):
-        recd_command_word = DataLinkLayerDecoderRT().decode_command_word(recd_command_frame)
+    # def receive_command_word(self, recd_command_frame):
+    #     recd_command_word = DataLinkLayerDecoderRT().decode_command_word(recd_command_frame)
 
-        return recd_command_word
+    #     return recd_command_word
 
-    def receive_status_word(self, recd_status_frame):
-        recd_status_word = DataLinkLayerDecoderRT().decode_status_word(recd_status_frame)
+    # def receive_status_word(self, recd_status_frame):
+    #     recd_status_word = DataLinkLayerDecoderRT().decode_status_word(recd_status_frame)
 
-        return recd_status_word
+    #     return recd_status_word
     
-    def receive_data_word(self, receive_data_word):
-        recd_data_word = DataLinkLayerDecoderRT().decode_data_word(recd_data_frame)
+    # def receive_data_word(self, receive_data_word):
+    #     recd_data_word = DataLinkLayerDecoderRT().decode_data_word(recd_data_frame)
 
-        return recd_data_word
+    #     return recd_data_word
