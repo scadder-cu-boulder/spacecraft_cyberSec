@@ -1,6 +1,6 @@
 import binascii
-from Data_Link_Layer_Encoder_BC import DataLinkLayerEncoderBC
-from Data_Link_Layer_Decoder_BC import DataLinkLayerDecoderBC
+from Data_Link_Layer.Data_Link_Layer_Encoder_BC import DataLinkLayerEncoderBC
+from Data_Link_Layer.Data_Link_Layer_Decoder_BC import DataLinkLayerDecoderBC
 class CommunicationLayerBC:
     def send_command_word(self, rt_address, tr_bit, sub_address, data_word_count):
         command_word = ''
