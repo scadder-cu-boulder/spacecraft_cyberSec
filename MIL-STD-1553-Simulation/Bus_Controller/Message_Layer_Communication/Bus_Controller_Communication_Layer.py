@@ -1,8 +1,11 @@
 import binascii
 from Data_Link_Layer.Data_Link_Layer_Encoder_BC import DataLinkLayerEncoderBC
 from Data_Link_Layer.Data_Link_Layer_Decoder_BC import DataLinkLayerDecoderBC
+
+
 class CommunicationLayerBC:
-    def send_command_word(self, rt_address, tr_bit, sub_address, data_word_count):
+    def send_command_word(
+            self, rt_address, tr_bit, sub_address, data_word_count):
         command_word = ''
         if not len(rt_address) > 2:
             command_word = command_word + rt_address
@@ -35,18 +38,20 @@ class CommunicationLayerBC:
 
         return data_wd_parts
 
-
     def send_data_word(self, data_wd_part):
-        data_part_frame = DataLinkLayerEncoderBC().build_data_word(data_wd_part)
+        data_part_frame = \
+            DataLinkLayerEncoderBC().build_data_word(data_wd_part)
         # future implementation of checksum here
 
         return data_part_frame
 
     # def receive_status_word(self, recd_status_frame):
-    #     recd_status_word = DataLinkLayerDecoderRT().decode_status_word(recd_status_frame)
+    #     recd_status_word = \
+    #       DataLinkLayerDecoderRT().decode_status_word(recd_status_frame)
 
     #     return recd_status_word
 
     # def receive_data_word(self, receive_data_word):
-    #     recd_data_word = DataLinkLayerDecoderRT().decode_data_word(recd_data_frame)
+    #     recd_data_word = \
+    #       DataLinkLayerDecoderRT().decode_data_word(recd_data_frame)
     #     return recd_data_word
