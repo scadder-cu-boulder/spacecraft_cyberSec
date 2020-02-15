@@ -135,7 +135,7 @@ class ModeCodeAnalyzer:
     def mode_code_0x11(self):
         print("This mode code (0x11) is: \n  Synchronize (w/data)")
         if not self.command_word[2] == "R":
-            print("Invalid Command Word as this Mode Code needs T/R bit set to 0")
+            print("Invalid Cmd Word as this Mode Code needs T/R bit set to 0")
         self.one_data_word_required = True
         self.broadcast_command_allowed = True
 
@@ -156,14 +156,15 @@ class ModeCodeAnalyzer:
     def mode_code_0x14(self):
         print("This mode code (0x14) is: \n  Selected Transmitter Shutdown")
         if not self.command_word[2] == "R":
-            print("Invalid Command Word as this Mode Code needs T/R bit set to 0")
+            print("Invalid Cmd Word as the Mode Code needs T/R bit set to 0")
         self.one_data_word_required = True
         self.broadcast_command_allowed = True
 
     def mode_code_0x15(self):
-        print("This mode code (0x15) is: \n  Override Selected Transmitter Shutdown")
+        print("This mode code (0x15) is:")
+        print("  Override Selected Transmitter Shutdown")
         if not self.command_word[2] == "R":
-            print("Invalid Command Word as this Mode Code needs T/R bit set to 0")
+            print("Invalid Cmd Word as this Mode Code needs T/R bit set to 0")
         self.one_data_word_required = True
         self.broadcast_command_allowed = True
 

@@ -44,7 +44,8 @@ class DataLinkLayerEncoderRT:
 
             # rest of the bits are static in this case and will be appended
             # in the final message.
-            # The specific functionality can be implemented for each bit separately
+            # The specific functionality can be implemented for each bit
+            # separately
 
             status_word_frame = status_word_frame + self.message_error_bit \
                 + self.instrumentation_bit \
@@ -61,27 +62,27 @@ class DataLinkLayerEncoderRT:
 
             return status_word_frame
         except Exception as ex:
-            print(
-                "Exception while encoding a status word on RT.\n Exception: {}".format(str(ex)))
+            print("Exception while encoding a status word on RT.")
+            print("    Exception: {}".format(str(ex)))
 
     """
-        This function takes hex input and converts it into 20 bit binary 
+        This function takes hex input and converts it into 20 bit binary
         frame including 3 bit sync and 1 bit parity. So, it will take only
-        4 hex at a time. Hex are sent in string format.    
+        4 hex at a time. Hex are sent in string format.
     """
 
     def build_data_word(self, data_word):
         try:
             if len(data_word) > 4:
-                raise Exception(
-                    "Invalid data input. Only 4 hex characters are allowed in data word frame")
+                raise Exception("Invalid data input. Only 4 hex characters are allowed in data word frame")  # noqa
 
             # Following 3 bits represent sync bits
             # Data word has negative sync hence the value 001
 
             data_word_frame = '001'
 
-            # Following 4 characters in data words are converted into 4 bit binary
+            # Following 4 characters in data words are
+            # converted into 4 bit binary
             # and added to the data word frame
             for character in data_word:
                 data_word_frame = data_word_frame + \
@@ -94,5 +95,5 @@ class DataLinkLayerEncoderRT:
 
             return(data_word_frame)
         except Exception as ex:
-            print(
-                "Exception while building a data word on BC\n Exception: {}".format(str(ex)))
+            print("Exception while building a data word on BC")
+            print("    Exception: {}".format(str(ex)))

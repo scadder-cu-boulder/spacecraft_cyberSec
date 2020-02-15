@@ -25,7 +25,8 @@ class DataLinkLayerDecoderRT:
 
             # Next 5 bits represent the Subaddress or mode code representator
             # 1st bit is taken as is because it will either be 0 or 1
-            # next 4 bits are converted to hex and 0x representation is discarded
+            # next 4 bits are converted to hex and 0x representation is
+            # discarded
             # for 1553 display.
             cmd_word = cmd_word + cmd_word_frame[9]
 
@@ -35,7 +36,8 @@ class DataLinkLayerDecoderRT:
             # chars = cmd_word_frame[9] + str(hex(int(subaddr_char,2)))[2:]
 
             # Next 5 bits represents number of data words or mode code based on
-            # the value of last 5 bits. If last 5 bits are 0x00 or 0x1f then next
+            # the value of last 5 bits. If last 5 bits
+            # are 0x00 or 0x1f then next
             # 5 bits will be considered as mode codes.
             cmd_word = cmd_word + cmd_word_frame[14]
 
@@ -46,8 +48,8 @@ class DataLinkLayerDecoderRT:
 
             return cmd_word
         except Exception as ex:
-            print("Exception while decoding a command word from on RT\n Exception:{}".format(
-                str(ex)))
+            print("Exception while decoding a command word from on RT")
+            print("    Exception:{}".format(str(ex)))
 
     def decode_data_word(self, data_word_frame):
         try:
@@ -61,5 +63,5 @@ class DataLinkLayerDecoderRT:
             print(data_word)
             return data_word
         except Exception as ex:
-            print("Exception while decoding a data word from on RT\n Exception:{}".format(
-                str(ex)))
+            print("Exception while decoding a data word from on RT")
+            print("Exception:{}".format(str(ex)))
