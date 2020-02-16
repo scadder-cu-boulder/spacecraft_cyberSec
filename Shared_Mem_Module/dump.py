@@ -1,6 +1,7 @@
 import subprocess as sub
 import math
 
+
 class TcpDump():
     def get_dump(self):
         p = sub.Popen(('sudo', 'tcpdump', '-AlX','-q','-i', 'enx3c18a09c230e', 'udp', 'port', '4444', '--direction', 'in'), stdout=sub.PIPE)
@@ -16,20 +17,20 @@ class TcpDump():
                 i = 0
             i += 1
 
-
     def convert_hex_to_bin(self, hex_str):
         """
         input: hex_num -> str
         output: binary -> str
         """
         string = []
-        for i in range(0,len(hex_str),2):
+        for i in range(0, len(hex_str), 2):
             string.append(''.join([hex_str[i], hex_str[i+1]]).decode("hex"))
         try:
             res = "{0:020b}".format(int(''.join(string), 2))
             return str(res)
         except ValueError:
             return None
+
 
 if __name__ == '__main__':
     tcpdump = TcpDump()
