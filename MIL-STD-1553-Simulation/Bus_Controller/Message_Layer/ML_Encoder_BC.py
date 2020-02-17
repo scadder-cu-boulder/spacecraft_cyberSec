@@ -25,17 +25,6 @@ class MessageLayerEncoderBC:
             DataLinkLayerEncoderBC().build_cmd_word(command_word)
         return command_frame
 
-    def generate_data_parts(self, data_wd):
-        data_wd_parts = []
-        for char in data_wd:
-            data_part_bits = format(ord(char), 'b')
-            bits_diff = 8 - len(data_part_bits)
-            if bits_diff > 0:
-                appnd_bits = '0'*bits_diff
-                data_part_bits = appnd_bits + data_part_bits
-            data_wd_parts.append(data_part_bits)
-        return data_wd_parts
-
     def construct_data_word(self, data_wd_part):
         data_part_frame = \
             DataLinkLayerEncoderBC().build_data_word(data_wd_part)
@@ -52,19 +41,15 @@ class MessageLayerEncoderBC:
             data_word_characters.append(message[i:i+2])
             communication_frames.append(
                 self.construct_data_word(message[i:i+2].encode("hex")))
-        data_word_count = str(len(data_word_characters))
-        communication_frames.append(self.construct_command_word(
+        data_word_count = '{0:02}'.format(len(data_word_characters))
+        communication_frames.insert(0, self.construct_command_word(
             rt_address, "R", sub_addres_or_mode_code, data_word_count))
-        
+        return communication_frames
 
-    # def receive_message_from_RT(
-    #     self, rt_address, sub_addres_or_mode_code, message):
-
-
-
-
-
-
-
-
-        
+    def receive_message_from_RT(
+            self, rt_address, sub_addres_or_mode_code, data_word_count):
+        communication_frames = list()
+        communication_frames.append(
+            self.construct_command_word(
+                rt_address, "T", sub_addres_or_mode_code, data_word_count))
+        return communication_frames

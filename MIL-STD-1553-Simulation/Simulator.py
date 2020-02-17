@@ -25,4 +25,5 @@ if __name__ == "__main__":
 
     # ModeCodeAnalyzer().analyze_mode_code("01T1F02")
 
-    print(MessageLayerEncoderBC().send_command_word("11", "R", "01", "05"))
+    print(MessageLayerEncoderBC().send_message_to_RT("11", "11", "HELLOjhb"))
+    print(MessageLayerEncoderBC().receive_message_from_RT("11", "10", "05"))
