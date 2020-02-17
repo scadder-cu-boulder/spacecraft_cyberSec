@@ -8,7 +8,7 @@
 # from Remote_Terminal.Mode_Code_Analyzer import ModeCodeAnalyzer
 
 from Bus_Controller.Message_Layer.ML_Encoder_BC import MessageLayerEncoderBC
-
+from Remote_Terminal.Message_Layer.ML_Analyzer_RT import MessageLayerAnalyzerRT
 
 if __name__ == "__main__":
     # cmd_wd_frame = DataLinkLayerEncoderBC().build_cmd_word("01R041F")
@@ -25,5 +25,9 @@ if __name__ == "__main__":
 
     # ModeCodeAnalyzer().analyze_mode_code("01T1F02")
 
-    print(MessageLayerEncoderBC().send_message_to_RT("11", "11", "HELLOjhb"))
-    print(MessageLayerEncoderBC().receive_message_from_RT("11", "10", "05"))
+    print(MessageLayerEncoderBC().send_message_to_RT(
+        "11", "11", "SOme message"))
+    # print(MessageLayerEncoderBC().receive_message_from_RT("01", "01", "02"))
+    # print(
+    #     MessageLayerAnalyzerRT().interprete_incoming_frame(
+    #         "00101001110010000011"))
