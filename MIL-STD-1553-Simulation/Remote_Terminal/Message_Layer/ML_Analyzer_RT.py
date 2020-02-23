@@ -4,7 +4,12 @@ from Data_Link_Layer.Data_Link_Layer_Encoder_RT import DataLinkLayerEncoderRT
 
 class MessageLayerAnalyzerRT:
 
-    lookup_memory = {"01": "HA", "02": "NA"}
+    lookup_memory = {"01": "AA", "02": "AB", "03": "AC", "04": "AD", "05": "AE",
+         "06": "AF", "07": "AG", "08": "AH", "09": "AI", "0A": "AJ", "0B": "AK", 
+         "0C": "AL", "0D": "AM", "0E": "AN", "0F": "AO", "10": "AP", "11": "AQ",
+         "12": "AR", "13": "AS", "14": "AT", "15": "AU", "16": "AV", "17": "AW",
+         "18": "AX", "19": "AY", "1A": "AZ", "1B": "BA", "1C": "BB", "1D": "BC",
+         "1E": "BD", "1F": "BE"}
 
     def construct_data_word(self, data_wd_part):
         data_part_frame = \
