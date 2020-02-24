@@ -1,0 +1,34 @@
+from Message_Layer.ML_Encoder_BC import MessageLayerEncoderBC
+from Message_Layer.ML_Decoder_BC import MessageLayerDecoderBC
+from Physical_Layer_Emulation.Communication_Socket_BC import BC_Listener
+from Physical_Layer_Emulation.Communication_Socket_BC import BC_Sender
+import threading
+
+
+class Bus_Controller:
+
+    def _send_data(self, frames):
+        for frame in frames:
+            BC_Sender().send_message(bytes(frame))
+
+    def start_listener(self):
+        listener = BC_Listener()
+        listener_thread = threading.Thread(
+            target=listener.start_listening)
+        listener_thread.start()
+        while True:
+            if listener.data_received:
+                print(MessageLayerDecoderBC().interprete_incoming_frame(
+                    listener.data_received))
+                listener.data_received = ""
+
+    def send_data_to_rt(self, rt_address, sub_address_or_mode_code, message):
+        frames = MessageLayerEncoderBC().send_message_to_RT(
+            rt_address, sub_address_or_mode_code, message)
+        self._send_data(frames)
+
+    def receive_data_from_rt(
+            self, rt_address, sub_address_or_mode_code, word_count):
+        frames = MessageLayerEncoderBC().receive_message_from_RT(
+            rt_address, sub_address_or_mode_code, word_count)
+        self._send_data(frames)

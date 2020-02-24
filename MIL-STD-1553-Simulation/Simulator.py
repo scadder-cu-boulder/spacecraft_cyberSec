@@ -7,11 +7,18 @@
 
 # from Remote_Terminal.Mode_Code_Analyzer import ModeCodeAnalyzer
 
-from Bus_Controller.Message_Layer.ML_Encoder_BC import MessageLayerEncoderBC
-from Bus_Controller.Message_Layer.ML_Decoder_BC import MessageLayerDecoderBC
-from Remote_Terminal.Message_Layer.ML_Analyzer_RT import MessageLayerAnalyzerRT
-from Bus_Controller.Physical_Layer_Emulation.Communication_Socket_BC \
-    import BC_Sender
+# from Bus_Controller.Message_Layer.ML_Encoder_BC import MessageLayerEncoderBC
+# from Bus_Controller.Message_Layer.ML_Decoder_BC import MessageLayerDecoderBC
+# from Remote_Terminal.Message_Layer.ML_Analyzer_RT \
+#     import MessageLayerAnalyzerRT
+# from Bus_Controller.Physical_Layer_Emulation.Communication_Socket_BC \
+#     import BC_Sender
+from Bus_Controller.BC_Simulator import Bus_Controller
+from Remote_Terminal.RT_Simulator import Remote_Terminal
+import threading
+
+global bc_listener_thread
+global rt_listener_thread
 
 if __name__ == "__main__":
     # cmd_wd_frame = DataLinkLayerEncoderBC().build_cmd_word("01R041F")
@@ -32,8 +39,22 @@ if __name__ == "__main__":
     #     "01", "11", "SOme message"))
     # print(MessageLayerEncoderBC().receive_message_from_RT("01", "01", "02"))
     # print(
-    #     MessageLayerAnalyzerRT().interprete_incoming_frame(
-    #         "10000001010001001101"))
+    # MessageLayerAnalyzerRT().interprete_incoming_frame(
+    #     "00100001010001001101")
     # print(MessageLayerDecoderBC().interprete_incoming_frame(
     #         "10000001000000000011"))
-    BC_Sender().send_message("10000001000000000011")
+    # BC_Sender().send_message("10000001000000000011")
+
+    try:
+        bc_listener_thread = threading.Thread(
+            target=Bus_Controller().start_listener)
+        bc_listener_thread.start()
+        rt_listener_thread = threading.Thread(
+            target=Remote_Terminal().start_listener)
+        rt_listener_thread.start()
+
+        # Bus_Controller().send_data_to_rt("01", "11", "Some Message")
+        Bus_Controller().receive_data_from_rt("01", "01", "02")
+
+    except KeyboardInterrupt:
+        exit()
