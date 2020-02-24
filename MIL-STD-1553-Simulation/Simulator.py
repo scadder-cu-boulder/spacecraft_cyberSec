@@ -16,6 +16,7 @@
 from Bus_Controller.BC_Simulator import Bus_Controller
 from Remote_Terminal.RT_Simulator import Remote_Terminal
 import threading
+import time
 
 global bc_listener_thread
 global rt_listener_thread
@@ -53,8 +54,10 @@ if __name__ == "__main__":
             target=Remote_Terminal().start_listener)
         rt_listener_thread.start()
 
-        # Bus_Controller().send_data_to_rt("01", "11", "Some Message")
-        Bus_Controller().receive_data_from_rt("01", "01", "02")
+        time.sleep(5)
+
+        Bus_Controller().send_data_to_rt("01", "11", "Some Message")
+        Bus_Controller().receive_data_from_rt("01", "01", "07")
 
     except KeyboardInterrupt:
         exit()

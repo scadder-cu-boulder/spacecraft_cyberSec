@@ -3,6 +3,7 @@ from Message_Layer.ML_Decoder_BC import MessageLayerDecoderBC
 from Physical_Layer_Emulation.Communication_Socket_BC import BC_Listener
 from Physical_Layer_Emulation.Communication_Socket_BC import BC_Sender
 import threading
+import time
 
 
 class Bus_Controller:
@@ -10,6 +11,7 @@ class Bus_Controller:
     def _send_data(self, frames):
         for frame in frames:
             BC_Sender().send_message(bytes(frame))
+            time.sleep(1)
 
     def _handle_incoming_frame(self, frame):
         print(MessageLayerDecoderBC().interprete_incoming_frame(frame))
@@ -20,12 +22,12 @@ class Bus_Controller:
             target=listener.start_listening)
         listener_thread.start()
         while True:
-            if listener.data_received:
+            if not len(listener.data_received) == 0:
                 # threading.Thread(
                 #     target=self._handle_incoming_frame,
                 #     args=(listener.data_received,)).start()
-                self._handle_incoming_frame(listener.data_received)
-                listener.data_received = ""
+                self._handle_incoming_frame(listener.data_received[0])
+                listener.data_received.pop(0)
 
     def send_data_to_rt(self, rt_address, sub_address_or_mode_code, message):
         frames = MessageLayerEncoderBC().send_message_to_RT(

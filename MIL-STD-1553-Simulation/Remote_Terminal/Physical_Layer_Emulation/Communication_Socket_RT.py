@@ -18,7 +18,7 @@ class RT_Listener:
 
     import socket
 
-    data_received = ""
+    data_received = list()
 
     def start_listening(self):
         port = 2001
@@ -29,7 +29,7 @@ class RT_Listener:
         socket_variable.bind(("", port))
         while True:
             data, addr = socket_variable.recvfrom(1024)
-            self.data_received = str(data)
+            self.data_received.append(str(data))
 
 
 if __name__ == "__main__":
