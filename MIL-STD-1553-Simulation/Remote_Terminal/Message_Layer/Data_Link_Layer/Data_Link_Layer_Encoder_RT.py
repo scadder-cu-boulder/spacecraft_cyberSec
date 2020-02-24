@@ -58,7 +58,7 @@ class DataLinkLayerEncoderRT:
                 + self.terminal_flag_bit \
                 + self.parity_bit
 
-            print(status_word_frame)
+            # print(status_word_frame)
 
             return status_word_frame
         except Exception as ex:
@@ -91,7 +91,7 @@ class DataLinkLayerEncoderRT:
             # 1 bit parity is added at the end of the frame
             data_word_frame = data_word_frame + '1'
 
-            print(data_word_frame)
+            # print(data_word_frame)
 
             return(data_word_frame)
         except Exception as ex:

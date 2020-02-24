@@ -44,7 +44,7 @@ class DataLinkLayerDecoderRT:
             word_char = cmd_word_frame[15:19]
             cmd_word = cmd_word + str(hex(int(word_char, 2)))[2:]
 
-            print(cmd_word)
+            # print(cmd_word)
 
             return cmd_word
         except Exception as ex:
@@ -60,7 +60,7 @@ class DataLinkLayerDecoderRT:
             for i in range(3, len(data_word_frame)-4, 4):
                 data_set = data_word_frame[i:i+4]
                 data_word = data_word + str(hex(int(data_set, 2)))[2:]
-            print(data_word)
+            # print(data_word)
             return data_word
         except Exception as ex:
             print("Exception while decoding a data word from on RT")

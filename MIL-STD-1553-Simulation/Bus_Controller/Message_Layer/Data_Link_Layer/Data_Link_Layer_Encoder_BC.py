@@ -74,7 +74,7 @@ class DataLinkLayerEncoderBC:
             # We need to add one parity bit at the end of the message
             cmd_word_frame = cmd_word_frame + '1'
 
-            print(cmd_word_frame)
+            # print(cmd_word_frame)
             return cmd_word_frame
         except Exception as ex:
             print("Exception while creating Command Word Frame.")
@@ -107,7 +107,7 @@ class DataLinkLayerEncoderBC:
             # 1 bit parity is added at the end of the frame
             data_word_frame = data_word_frame + '1'
 
-            print(data_word_frame)
+            # print(data_word_frame)
 
             return(data_word_frame)
         except Exception as ex:

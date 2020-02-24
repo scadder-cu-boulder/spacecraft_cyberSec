@@ -61,5 +61,4 @@ class MessageLayerAnalyzerRT:
 
         elif incoming_frame[0:3] == "001":
             data_word = self.deconstruct_data_word(incoming_frame)
-            print(data_word)
-            return data_word.decode("hex")
+            print(data_word.decode("hex"))

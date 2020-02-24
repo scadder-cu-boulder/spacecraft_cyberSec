@@ -10,6 +10,11 @@ class Remote_Terminal:
         for frame in frames:
             RT_Sender().send_message(bytes(frame))
 
+    def _handle_incoming_frame(self, frame):
+        frames = \
+            MessageLayerAnalyzerRT().interprete_incoming_frame(frame)
+        self._send_data_to_bc(frames)
+
     def start_listener(self):
         listener = RT_Listener()
         listener_thread = threading.Thread(
@@ -17,8 +22,8 @@ class Remote_Terminal:
         listener_thread.start()
         while True:
             if listener.data_received:
-                frames = \
-                    MessageLayerAnalyzerRT().interprete_incoming_frame(
-                        listener.data_received)
-                self._send_data_to_bc(frames)
+                # threading.Thread(
+                #     target=self._handle_incoming_frame,
+                #     args=(listener.data_received,)).start()
+                self._handle_incoming_frame(listener.data_received)
                 listener.data_received = ""

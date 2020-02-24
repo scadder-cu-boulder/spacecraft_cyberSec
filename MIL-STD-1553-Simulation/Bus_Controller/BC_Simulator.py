@@ -11,6 +11,9 @@ class Bus_Controller:
         for frame in frames:
             BC_Sender().send_message(bytes(frame))
 
+    def _handle_incoming_frame(self, frame):
+        print(MessageLayerDecoderBC().interprete_incoming_frame(frame))
+
     def start_listener(self):
         listener = BC_Listener()
         listener_thread = threading.Thread(
@@ -18,8 +21,10 @@ class Bus_Controller:
         listener_thread.start()
         while True:
             if listener.data_received:
-                print(MessageLayerDecoderBC().interprete_incoming_frame(
-                    listener.data_received))
+                # threading.Thread(
+                #     target=self._handle_incoming_frame,
+                #     args=(listener.data_received,)).start()
+                self._handle_incoming_frame(listener.data_received)
                 listener.data_received = ""
 
     def send_data_to_rt(self, rt_address, sub_address_or_mode_code, message):

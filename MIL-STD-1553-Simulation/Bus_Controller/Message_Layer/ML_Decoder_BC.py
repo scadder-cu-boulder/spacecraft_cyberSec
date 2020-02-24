@@ -20,5 +20,5 @@ class MessageLayerDecoderBC:
             return status_word
         elif received_frame[0:3] == "001":
             data_word = self._deconstruct_data_word(received_frame)
-            print(data_word)
+            # print(data_word)
             return data_word.decode("hex")
