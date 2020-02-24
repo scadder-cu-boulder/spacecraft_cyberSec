@@ -10,6 +10,8 @@
 from Bus_Controller.Message_Layer.ML_Encoder_BC import MessageLayerEncoderBC
 from Bus_Controller.Message_Layer.ML_Decoder_BC import MessageLayerDecoderBC
 from Remote_Terminal.Message_Layer.ML_Analyzer_RT import MessageLayerAnalyzerRT
+from Bus_Controller.Physical_Layer_Emulation.Communication_Socket_BC \
+    import BC_Sender
 
 if __name__ == "__main__":
     # cmd_wd_frame = DataLinkLayerEncoderBC().build_cmd_word("01R041F")
@@ -32,5 +34,6 @@ if __name__ == "__main__":
     # print(
     #     MessageLayerAnalyzerRT().interprete_incoming_frame(
     #         "10000001010001001101"))
-    print(MessageLayerDecoderBC().interprete_incoming_frame(
-            "10000001000000000011"))
+    # print(MessageLayerDecoderBC().interprete_incoming_frame(
+    #         "10000001000000000011"))
+    BC_Sender().send_message("10000001000000000011")
