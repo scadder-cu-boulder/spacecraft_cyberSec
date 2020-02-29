@@ -55,9 +55,14 @@ if __name__ == "__main__":
         # rt_listener_thread.start()
 
         # time.sleep(5)
+        bc_object = Bus_Controller()
+        bc_object.send_data_to_rt("01", "11", "Some Message")
+        command_word_frame_sent_1 = bc_object.command_word_frame
+        bc_object.command_word_frame = ""
 
-        Bus_Controller().send_data_to_rt("01", "11", "Some Message")
-        Bus_Controller().receive_data_from_rt("01", "01", "07")
+        bc_object.receive_data_from_rt("01", "01", "07")
+        command_word_frame_sent_2 = bc_object.command_word_frame
+        bc_object.command_word_frame = ""
 
     except KeyboardInterrupt:
         exit()

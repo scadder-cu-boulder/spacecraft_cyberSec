@@ -8,6 +8,8 @@ import time
 
 class Bus_Controller:
 
+    command_word_frame = ""
+
     def _send_data(self, frames):
         for frame in frames:
             BC_Sender().send_message(bytes(frame))
@@ -32,12 +34,14 @@ class Bus_Controller:
     def send_data_to_rt(self, rt_address, sub_address_or_mode_code, message):
         frames = MessageLayerEncoderBC().send_message_to_RT(
             rt_address, sub_address_or_mode_code, message)
+        self.command_word_frame = frames[0]
         self._send_data(frames)
 
     def receive_data_from_rt(
             self, rt_address, sub_address_or_mode_code, word_count):
         frames = MessageLayerEncoderBC().receive_message_from_RT(
             rt_address, sub_address_or_mode_code, word_count)
+        self.command_word_frame = frames[0]
         self._send_data(frames)
 
 
