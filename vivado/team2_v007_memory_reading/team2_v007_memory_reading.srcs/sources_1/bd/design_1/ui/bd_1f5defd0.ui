@@ -1,0 +1,42 @@
+{
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0.19  2019-03-26 bk=1.5019 VDI=41 GEI=35 GUI=JA:9.0 TLS
+#  -string -flagsOSRD
+preplace port DDR -pg 1 -lvl 8 -x 2530 -y 110 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 8 -x 2530 -y 130 -defaultsOSRD
+preplace inst microblaze_0_local_memory -pg 1 -lvl 3 -x 1090 -y 100 -defaultsOSRD
+preplace inst axi_bram_ctrl_0 -pg 1 -lvl 6 -x 2150 -y 280 -defaultsOSRD
+preplace inst axi_bram_ctrl_1 -pg 1 -lvl 4 -x 1470 -y 390 -defaultsOSRD
+preplace inst axi_mem_intercon -pg 1 -lvl 3 -x 1090 -y 360 -defaultsOSRD
+preplace inst axi_mem_intercon_1 -pg 1 -lvl 5 -x 1850 -y 260 -defaultsOSRD
+preplace inst blk_mem_gen_0 -pg 1 -lvl 7 -x 2400 -y 290 -defaultsOSRD
+preplace inst mdm_1 -pg 1 -lvl 1 -x 220 -y 110 -defaultsOSRD
+preplace inst microblaze_0 -pg 1 -lvl 2 -x 670 -y 90 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 4 -x 1470 -y 160 -defaultsOSRD
+preplace inst rst_processing_system7_0_50M -pg 1 -lvl 1 -x 220 -y 320 -defaultsOSRD
+preplace netloc mdm_1_debug_sys_rst 1 0 2 30 220 400
+preplace netloc microblaze_2_Clk 1 0 6 40 210 410 190 940 180 1250 40 1680 380 2000
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 5 20 200 NJ 200 NJ 200 1240J 50 1670
+preplace netloc rst_processing_system7_0_50M_bus_struct_reset 1 1 2 430 180 930J
+preplace netloc rst_processing_system7_0_50M_interconnect_aresetn 1 1 4 NJ 340 910 10 NJ 10 1700
+preplace netloc rst_processing_system7_0_50M_mb_reset 1 1 1 420 120n
+preplace netloc rst_processing_system7_0_50M_peripheral_aresetn 1 1 5 NJ 360 920 500 1250 470 1700 400 2010
+preplace netloc axi_mem_intercon_M01_AXI 1 3 1 N 370
+preplace netloc processing_system7_0_DDR 1 4 4 NJ 110 NJ 110 NJ 110 NJ
+preplace netloc axi_mem_intercon_M00_AXI 1 3 1 1260 140n
+preplace netloc microblaze_0_dlmb_1 1 2 1 N 70
+preplace netloc microblaze_0_debug 1 1 1 N 80
+preplace netloc microblaze_0_M_AXI_DP 1 2 1 920 110n
+preplace netloc processing_system7_0_FIXED_IO 1 4 4 NJ 130 NJ 130 NJ 130 NJ
+preplace netloc processing_system7_0_M_AXI_GP0 1 4 1 1690 170n
+preplace netloc microblaze_0_ilmb_1 1 2 1 N 90
+preplace netloc axi_bram_ctrl_1_BRAM_PORTA 1 4 3 NJ 390 NJ 390 2290
+preplace netloc axi_bram_ctrl_0_BRAM_PORTA 1 6 1 N 280
+preplace netloc axi_mem_intercon_1_M00_AXI 1 5 1 N 260
+levelinfo -pg 1 0 220 670 1090 1470 1850 2150 2400 2530
+pagesize -pg 1 -db -bbox -sgen 0 0 2650 510
+"
+}
+{
+   "da_clkrst_cnt":"2"
+}

@@ -1,0 +1,17 @@
+#-----------------------------------------------------------
+# Vivado v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:47:09 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Mon Jan 20 15:13:32 2020
+# Process ID: 30330
+# Current directory: /home/scadder/project/team2/team2_v007_memory_reading
+# Command line: vivado
+# Log file: /home/scadder/project/team2/team2_v007_memory_reading/vivado.log
+# Journal file: /home/scadder/project/team2/team2_v007_memory_reading/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/scadder/project/team2/team2_v007_memory_reading/team2_v007_memory_reading.xpr
+update_compile_order -fileset sources_1
+launch_sdk -workspace /home/scadder/project/team2/team2_v007_memory_reading/team2_v007_memory_reading.sdk -hwspec /home/scadder/project/team2/team2_v007_memory_reading/team2_v007_memory_reading.sdk/design_1_wrapper.hdf
+open_bd_design {/home/scadder/project/team2/team2_v007_memory_reading/team2_v007_memory_reading.srcs/sources_1/bd/design_1/design_1.bd}
+launch_sdk -workspace /home/scadder/project/team2/team2_v007_memory_reading/team2_v007_memory_reading.sdk -hwspec /home/scadder/project/team2/team2_v007_memory_reading/team2_v007_memory_reading.sdk/design_1_wrapper.hdf

@@ -1,0 +1,11 @@
+13:56:37 **** Incremental Build of configuration Debug for project CPU0 ****
+make all 
+Building file: ../src/helloworld.c
+Invoking: ARM gcc compiler
+arm-xilinx-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/helloworld.o" -I../../CPU0_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/helloworld.d" -MT"src/helloworld.o" -o "src/helloworld.o" "../src/helloworld.c"
+/bin/sh: 1: arm-xilinx-eabi-gcc: not found
+make: *** [src/helloworld.o] Error 127
+src/subdir.mk:24: recipe for target 'src/helloworld.o' failed
+
+13:56:37 Build Finished (took 397ms)
+

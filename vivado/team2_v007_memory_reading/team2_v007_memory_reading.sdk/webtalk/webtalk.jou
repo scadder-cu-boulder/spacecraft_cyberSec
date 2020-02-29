@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:47:09 MDT 2019
+# 
+# Start of session at: Sun Jan 19 18:57:30 2020
+# Process ID: 9217
+# Current directory: /home/scadder/project/team2/team2_v007_memory_reading/team2_v007_memory_reading.sdk/webtalk
+# Command line: wbtcv -mode batch -source sdk_webtalk.tcl
+# Log file: /home/scadder/project/team2/team2_v007_memory_reading/team2_v007_memory_reading.sdk/webtalk/webtalk.log
+# Journal file: /home/scadder/project/team2/team2_v007_memory_reading/team2_v007_memory_reading.sdk/webtalk/webtalk.jou
+#-----------------------------------------------------------
+source sdk_webtalk.tcl

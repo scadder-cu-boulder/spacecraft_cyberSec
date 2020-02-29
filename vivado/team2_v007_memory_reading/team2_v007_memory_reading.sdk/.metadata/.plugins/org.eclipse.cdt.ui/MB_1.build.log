@@ -1,0 +1,21 @@
+22:54:51 **** Auto Build of configuration Debug for project MB_1 ****
+make all 
+Building file: ../src/testperiph.c
+Invoking: MicroBlaze gcc compiler
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/testperiph.o" -I../../MB_1_bsp/microblaze_1/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/testperiph.d" -MT"src/testperiph.o" -o "src/testperiph.o" "../src/testperiph.c"
+Finished building: ../src/testperiph.c
+ 
+Building target: MB_1.elf
+Invoking: MicroBlaze gcc linker
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../MB_1_bsp/microblaze_1/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "MB_1.elf"  ./src/testperiph.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+Finished building target: MB_1.elf
+ 
+Invoking: MicroBlaze Print Size
+mb-size MB_1.elf  |tee "MB_1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2044	    268	   3112	   5424	   1530	MB_1.elf
+Finished building: MB_1.elf.size
+ 
+
+22:54:52 Build Finished (took 650ms)
+

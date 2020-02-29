@@ -1,0 +1,14 @@
+13:50:26 **** Build of configuration Debug for project RT1 ****
+make all 
+Building file: ../src/testperiph.c
+Invoking: MicroBlaze gcc compiler
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/testperiph.o" -I../../RT1_bsp/microblaze_1/include -mlittle-endian -mcpu=v9.5 -mxl-soft-mul -Wl,--no-relax -MMD -MP -MF"src/testperiph.d" -MT"src/testperiph.o" -o "src/testperiph.o" "../src/testperiph.c"
+../src/testperiph.c:33:10: fatal error: xil_io.h: No such file or directory
+ #include <xil_io.h>
+          ^~~~~~~~~~
+compilation terminated.
+make: *** [src/testperiph.o] Error 1
+src/subdir.mk:21: recipe for target 'src/testperiph.o' failed
+
+13:50:27 Build Finished (took 411ms)
+
