@@ -39,3 +39,9 @@ class Bus_Controller:
         frames = MessageLayerEncoderBC().receive_message_from_RT(
             rt_address, sub_address_or_mode_code, word_count)
         self._send_data(frames)
+
+
+if __name__ == "__main__":
+    bc_listener_thread = threading.Thread(
+        target=Bus_Controller().start_listener)
+    bc_listener_thread.start()

@@ -30,3 +30,9 @@ class Remote_Terminal:
                 #     args=(listener.data_received,)).start()
                 self._handle_incoming_frame(listener.data_received[0])
                 listener.data_received.pop(0)
+
+
+if __name__ == "__main__":
+    rt_listener_thread = threading.Thread(
+        target=Remote_Terminal().start_listener)
+    rt_listener_thread.start()

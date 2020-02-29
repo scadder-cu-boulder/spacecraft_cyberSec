@@ -47,14 +47,14 @@ if __name__ == "__main__":
     # BC_Sender().send_message("10000001000000000011")
 
     try:
-        bc_listener_thread = threading.Thread(
-            target=Bus_Controller().start_listener)
-        bc_listener_thread.start()
-        rt_listener_thread = threading.Thread(
-            target=Remote_Terminal().start_listener)
-        rt_listener_thread.start()
+        # bc_listener_thread = threading.Thread(
+        #     target=Bus_Controller().start_listener)
+        # bc_listener_thread.start()
+        # rt_listener_thread = threading.Thread(
+        #     target=Remote_Terminal().start_listener)
+        # rt_listener_thread.start()
 
-        time.sleep(5)
+        # time.sleep(5)
 
         Bus_Controller().send_data_to_rt("01", "11", "Some Message")
         Bus_Controller().receive_data_from_rt("01", "01", "07")
