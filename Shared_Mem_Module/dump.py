@@ -26,7 +26,7 @@ class TcpDump():
         for i in range(0, len(hex_str), 2):
             string.append(''.join([hex_str[i], hex_str[i+1]]).decode("hex"))
         try:
-            res = "{0:020b}".format(int(''.join(string), 2))
+            res = hex(int(''.join(string), 2))
             return str(res)
         except ValueError:
             return None
