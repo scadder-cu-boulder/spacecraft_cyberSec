@@ -12,7 +12,7 @@ class TcpDump():
             if i == 3:
                 str2 = row.rstrip()[10:49].replace(' ', '')
                 hex_str = "".join([str1, str2])
-                print self.convert_hex_to_bin(hex_str)
+                return self.convert_hex_to_bin(hex_str)
             if 'IP' in row.strip():
                 i = 0
             i += 1
@@ -31,7 +31,8 @@ class TcpDump():
         except ValueError:
             return None
 
-
+'''
 if __name__ == '__main__':
     tcpdump = TcpDump()
     tcpdump.get_dump()
+'''
