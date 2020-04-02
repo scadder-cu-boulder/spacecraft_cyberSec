@@ -33,8 +33,6 @@
 ******************************************************************************/
 
 /*
- * helloworld.c: simple test application
- *
  * This application configures UART 16550 to baud rate 9600.
  * PS7 UART (Zynq) is not initialized by this application, since
  * bootrom/bsp configures it to baud rate 115200
@@ -74,14 +72,21 @@ int positive_sync_count = 0;
 
 void monitor(int value_at_address)
 {
+	// extract command word flag written by shared memory module
 	int command_word_flag = (1048576 & value_at_address) >> 20;
+	// extract sync bit
 	int sync = (917504 & value_at_address) >> 17;
+	// if it is actual command word flag get the count of data words expected
+	// command word flag 0 indicates it was received at ingress.
 	if (command_word_flag)
 	{
 		total_count = ((62 & value_at_address) >> 1) + 1;
 		receive_count = 0;
 	} else
 	{
+		// only command word and status words have positive sync.
+		// if word is received at ingress, and has positive sync, it must be status word
+		// in case of spoofing, command word and status word both will be received at ingress
 		if (sync == 4)
 		{
 			positive_sync_count = positive_sync_count + 1;
@@ -89,6 +94,7 @@ void monitor(int value_at_address)
 			{
 				print("Possible spoofing attack");
 			}
+			// tracking receive count and total count to check DoS and replay attacks
 		} else
 		{
 			positive_sync_count = 0;
@@ -115,14 +121,6 @@ int main()
 
     while(1)
     {
-
-//    	BRAM ++;
-//    	microblaze_flush_dcache();
-//    	Xil_DCacheInvalidate();
-//    	xil_printf("[MB] PS_DDR = %i\n\r", PS_DDR);
-//    	xil_printf("[MB] BRAM = %i\n\r", BRAM);
-
-
     	// if dump program has cycled around to start writing to the first mem i.e. 0x4000000C
     	if (NEXT_CYCLE == 1)
     	{
