@@ -67,7 +67,7 @@ def read_memory_values():
         try:
             if int(str(datetime.datetime.now().microsecond)[1])%2 == 1:
                 # temp_memory_values = ["0x00000000", "0x40000010", "0x40000010", "0x00000000"]  # semaphore, last_written, last_read, next_cycle
-                temp_memory_values = [os.system('devmem 0x40000000 w'), os.system('devmem 0x40000004 w'), os.system('devmem 0x4000008 w'), os.system('devmem 0x4000000c w')]
+                temp_memory_values = [os.system('devmem 0x4000000c w'), os.system('devmem 0x40000000 w'), os.system('devmem 0x4000004 w'), os.system('devmem 0x40000008 w')]
                 break
         except IndexError:
             continue
