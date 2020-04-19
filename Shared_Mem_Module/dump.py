@@ -4,7 +4,7 @@ import math
 
 class TcpDump():
     def get_dump(self):
-        p = sub.Popen(('sudo', 'tcpdump', '-AlX', '-q', '-i', 'eth0', 'udp', 'port', '2001', '--direction', 'in'), stdout=sub.PIPE)
+        p = sub.Popen(('tcpdump', '-AlX', '-q', '-i', 'eth0', 'udp', 'port', '2000', '--direction', 'in'), stdout=sub.PIPE)
         i = 0
         for row in iter(p.stdout.readline, b''):
             if i == 2:
