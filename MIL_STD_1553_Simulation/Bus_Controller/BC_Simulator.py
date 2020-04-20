@@ -9,6 +9,7 @@ import time
 class Bus_Controller:
 
     command_word_frame = ""
+    received_frames = list()
 
     def _send_data(self, frames):
         for frame in frames:
@@ -29,6 +30,7 @@ class Bus_Controller:
                 #     target=self._handle_incoming_frame,
                 #     args=(listener.data_received,)).start()
                 self._handle_incoming_frame(listener.data_received[0])
+                self.received_frames.append(listener.data_received[0])
                 listener.data_received.pop(0)
 
     def send_data_to_rt(self, rt_address, sub_address_or_mode_code, message):
