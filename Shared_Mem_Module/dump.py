@@ -2,11 +2,13 @@ import subprocess as sub
 import math
 
 
-class TcpDump():
+class TcpDump:
+    def start_tcpdump(self):
+        self.p = sub.Popen(('tcpdump', '-AlX', '-q', '-i', 'eth0', 'udp', 'port', '2000', '--direction', 'in'), stdout=sub.PIPE)
+        
     def get_dump(self):
-        p = sub.Popen(('tcpdump', '-AlX', '-q', '-i', 'eth0', 'udp', 'port', '2000', '--direction', 'in'), stdout=sub.PIPE)
         i = 0
-        for row in iter(p.stdout.readline, b''):
+        for row in iter(self.p.stdout.readline, b''):
             if i == 2:
                 str1 = row.rstrip()[40:49].replace(' ', '')
             if i == 3:
