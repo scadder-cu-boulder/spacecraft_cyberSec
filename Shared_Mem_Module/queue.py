@@ -14,9 +14,7 @@ def read_tcpdump_data():
     tcpdump = TcpDump()
     tcpdump.start_tcpdump()
     global queue
-    while True:
-        tcpdump_data = tcpdump.get_dump()
-        queue.put(tcpdump_data)
+    tcpdump.get_dump(queue)
 
 
 def write_queue_data():
