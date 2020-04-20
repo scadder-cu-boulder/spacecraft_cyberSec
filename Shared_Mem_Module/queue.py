@@ -1,5 +1,5 @@
 import Queue
-import dump
+from dump import TcpDump
 import threading
 import time
 import os
@@ -11,9 +11,11 @@ y = 0
 
 def read_tcpdump_data():
     """read tcpdump data from dump.py and write it to queue"""
+    tcpdump = TcpDump()
+    tcpdump.start_tcpdump()
+    global queue
     while True:
-        global queue
-        tcpdump_data = dump.TcpDump().get_dump()
+        tcpdump_data = tcpdump.get_dump()
         queue.put(tcpdump_data)
 
 
@@ -27,7 +29,7 @@ def write_queue_data():
                 continue
             """lock shared memory space by setting semaphore as 0x10101010"""
             os.system('devmem 0x4000000c w 0x10101010')  # change semaphore to 0x01010101 if running another instance
-            if memory_values[3] == "0x11111111" and int(memory_values[1], 16) >= int(memory_values[2], 16):
+            if memory_values[3] == "0x00000001" and int(memory_values[1], 16) >= int(memory_values[2], 16):
                 continue
             next_writable_address = get_next_write_address(memory_values[1])
             if next_writable_address == memory_values[2]:
@@ -47,7 +49,7 @@ def write_queue_data():
 
 def get_next_write_address(last_written):
     if last_written == "0x40001ffc":
-        os.system('devmem 0x40000000 w 0x11111111')
+        os.system('devmem 0x40000000 w 0x00000001')
         '''set next cycle as 1 and reset memory address'''
         return "0x40000010"
     return '0x{0:0{1}X}'.format((int(last_written, 16) + 4), 8)
