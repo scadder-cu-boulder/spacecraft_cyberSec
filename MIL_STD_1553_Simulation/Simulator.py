@@ -58,6 +58,10 @@ if __name__ == "__main__":
         bc_object = Bus_Controller()
         bc_object.send_data_to_rt("01", "11", "Some Message")
         command_word_frame_sent_1 = bc_object.command_word_frame
+        time.sleep(3)
+        while bc_object.received_frames:           
+            print(bc_object.received_frames[0])
+            bc_object.received_frames.pop(0)
         bc_object.command_word_frame = ""
 
         bc_object.receive_data_from_rt("01", "01", "07")
