@@ -64,7 +64,7 @@
 // declare a global variable to count data words
 
 // positive sync - 100
-// negative sync - 011
+// negative sync - 001
 
 int total_count = 0;
 int receive_count = 0;
