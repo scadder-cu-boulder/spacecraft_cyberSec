@@ -36,7 +36,7 @@ def write_queue_data():
                 continue
             # print next_writable_address
             x = queue.get()
-            x = "0x" + str(x)
+            x = str(x)
             # command = "devmem " + next_writable_address + " w " + "0x" + str(x)
             '''write data to shared memory'''
             # os.system(command)
