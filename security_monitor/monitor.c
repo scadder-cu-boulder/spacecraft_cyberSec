@@ -126,9 +126,9 @@ int main()
     	{
     		if ((MEM_TO_READ) < 0x40001fff)
     		{
+			MEM_TO_READ = MEM_TO_READ + 4;
     			value_at_address = (*(volatile u32 *)(MEM_TO_READ));
     			monitor(value_at_address);
-    			MEM_TO_READ = MEM_TO_READ + 4;
     		} else
     		{
     			MEM_TO_READ = 0x4000000C;
@@ -138,12 +138,13 @@ int main()
     	{
     		if (LAST_MEM_WRITTEN >= MEM_TO_READ)
     		{
+			MEM_TO_READ = MEM_TO_READ + 4;
     			value_at_address = (*(volatile u32 *)(MEM_TO_READ));
     			monitor(value_at_address);
-    			MEM_TO_READ = MEM_TO_READ + 4;
+    			
     		} else
     		{
-    			sleep(2);
+    			sleep(1);
     		}
     	}
     	usleep(1000);
