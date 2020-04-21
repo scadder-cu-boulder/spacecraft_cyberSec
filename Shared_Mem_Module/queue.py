@@ -9,12 +9,12 @@ queue = Queue.Queue()
 y = 0
 
 
-def read_tcpdump_data():
+def read_tcpdump_data(direction):
     """read tcpdump data from dump.py and write it to queue"""
     tcpdump = TcpDump()
-    tcpdump.start_tcpdump()
+    tcpdump.start_tcpdump(direction)
     global queue
-    tcpdump.get_dump(queue)
+    tcpdump.get_dump(queue, direction)
 
 
 def write_queue_data():
@@ -93,7 +93,9 @@ def read_memory_values():
     return temp_memory_values
 
 
-t1 = threading.Thread(target=read_tcpdump_data, args=())
+t1 = threading.Thread(target=read_tcpdump_data, args=("in",))
 t1.start()
-t2 = threading.Thread(target=write_queue_data(), args=())
+t2 = threading.Thread(target=read_tcpdump_data, args=("out",))
 t2.start()
+t3 = threading.Thread(target=write_queue_data, args=())
+t3.start()
