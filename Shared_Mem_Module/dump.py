@@ -6,7 +6,7 @@ class TcpDump:
     def start_tcpdump(self, direction="in"):
         self.p = sub.Popen(('tcpdump', '-AlX', '-q', '-i', 'eth0', 'udp', 'port', '2000', '--direction', direction), stdout=sub.PIPE)
         
-    def get_dump_in(self, queue, direction="in"):
+    def get_dump(self, queue, direction="in"):
         i = 0
         for row in iter(self.p.stdout.readline, b''):
             if i == 2:
