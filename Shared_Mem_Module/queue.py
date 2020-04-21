@@ -51,7 +51,7 @@ def write_queue_data():
 
 
 def get_next_write_address(last_written):
-    if last_written == "0x40001ffc":
+    if last_written == "0x40001FFC":
         # os.system('devmem 0x40000008 w 0x00000001')
         sub.Popen(["devmem", "0x40000008", "w", "0x00000001"], stdout=sub.PIPE)
         '''set next cycle as 1 and reset memory address'''
