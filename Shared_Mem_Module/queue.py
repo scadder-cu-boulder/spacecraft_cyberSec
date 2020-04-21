@@ -34,10 +34,10 @@ def write_queue_data():
                 continue
             print next_writable_address
             x = queue.get()
-            command = "devmem " + next_writable_address + " w " + str(x)
+            command = "devmem " + next_writable_address + " w " + "0x" + str(x)
             '''write data to shared memory'''
             os.system(command)
-            command = "devmem 0x40000000 w" + next_writable_address
+            command = "devmem 0x40000000 w " + next_writable_address
             # print command
             '''update last written memory address'''
             os.system(command)
@@ -47,7 +47,7 @@ def write_queue_data():
 
 def get_next_write_address(last_written):
     if last_written == "0x40001ffc":
-        os.system('devmem 0x40000000 w 0x00000001')
+        os.system('devmem 0x40000008 w 0x00000001')
         '''set next cycle as 1 and reset memory address'''
         return "0x40000010"
     return '0x{0:0{1}X}'.format((int(last_written, 16) + 4), 8)
