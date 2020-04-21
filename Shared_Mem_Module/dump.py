@@ -3,10 +3,10 @@ import math
 
 
 class TcpDump:
-    def start_tcpdump(self):
-        self.p = sub.Popen(('tcpdump', '-AlX', '-q', '-i', 'eth0', 'udp', 'port', '2000', '--direction', 'in'), stdout=sub.PIPE)
+    def start_tcpdump(self, direction="in"):
+        self.p = sub.Popen(('tcpdump', '-AlX', '-q', '-i', 'eth0', 'udp', 'port', '2000', '--direction', direction), stdout=sub.PIPE)
         
-    def get_dump(self, queue):
+    def get_dump_in(self, queue, direction="in"):
         i = 0
         for row in iter(self.p.stdout.readline, b''):
             if i == 2:
@@ -14,7 +14,12 @@ class TcpDump:
             if i == 3:
                 str2 = row.rstrip()[10:49].replace(' ', '')
                 hex_str = "".join([str1, str2])
-                queue.put(self.convert_hex_to_bin(hex_str))
+                if direction == "out":
+                    if hex_str[:3] == "100":
+                        hex_str = "1" + hex_str
+                        queue.put(self.convert_hex_to_bin(hex_str))
+                elif direction == "in":
+                    queue.put(self.convert_hex_to_bin(hex_str))
             if 'IP' in row.strip():
                 i = 0
             i += 1
