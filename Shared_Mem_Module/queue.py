@@ -2,8 +2,8 @@ import Queue
 from dump import TcpDump
 import threading
 import time
-import os
 import datetime
+import subprocess as sub
 
 queue = Queue.Queue()
 y = 0
@@ -26,28 +26,34 @@ def write_queue_data():
             if not write_data_permission:
                 continue
             """lock shared memory space by setting semaphore as 0x10101010"""
-            os.system('devmem 0x4000000c w 0x10101010')  # change semaphore to 0x01010101 if running another instance
+            # os.system('devmem 0x4000000c w 0x10101010')
+            # change semaphore to 0x01010101 if running another instance
+            sub.Popen(["devmem", "0x4000000c", "w", "0x10101010"], stdout=sub.PIPE)
             if memory_values[3] == "0x00000001" and int(memory_values[1], 16) >= int(memory_values[2], 16):
                 continue
             next_writable_address = get_next_write_address(memory_values[1])
             if next_writable_address == memory_values[2]:
                 continue
-            print next_writable_address
+            # print next_writable_address
             x = queue.get()
-            command = "devmem " + next_writable_address + " w " + "0x" + str(x)
+            x = "0x" + str(x)
+            # command = "devmem " + next_writable_address + " w " + "0x" + str(x)
             '''write data to shared memory'''
-            os.system(command)
-            command = "devmem 0x40000000 w " + next_writable_address
-            # print command
+            # os.system(command)
+            sub.Popen(["devmem", next_writable_address, "w", x], stdout=sub.PIPE)
+            # command = "devmem 0x40000000 w " + next_writable_address
             '''update last written memory address'''
-            os.system(command)
+            # os.system(command)
+            sub.Popen(["devmem", "0x40000000", "w", next_writable_address], stdout=sub.PIPE)
             '''release shared memory space by setting semaphore bit to 0x00000000'''
-            os.system('devmem 0x4000000c w 0x00000000')
+            # os.system('devmem 0x4000000c w 0x00000000')
+            sub.Popen(["devmem", "0x4000000c", "w", "0x00000000"], stdout=sub.PIPE)
 
 
 def get_next_write_address(last_written):
     if last_written == "0x40001ffc":
-        os.system('devmem 0x40000008 w 0x00000001')
+        # os.system('devmem 0x40000008 w 0x00000001')
+        sub.Popen(["devmem", "0x40000008", "w", "0x00000001"], stdout=sub.PIPE)
         '''set next cycle as 1 and reset memory address'''
         return "0x40000010"
     return '0x{0:0{1}X}'.format((int(last_written, 16) + 4), 8)
@@ -63,11 +69,24 @@ def check_semaphore(semaphore):  # change semaphore to 0x01010101 if running ano
 
 
 def read_memory_values():
+    temp_memory_values = ["", "", "", ""]
     while True:
         try:
-            if int(str(datetime.datetime.now().microsecond)[1])%2 == 1:
-                # temp_memory_values = ["0x00000000", "0x40000010", "0x40000010", "0x00000000"]  # semaphore, last_written, last_read, next_cycle
-                temp_memory_values = [os.system('devmem 0x4000000c w'), os.system('devmem 0x40000000 w'), os.system('devmem 0x4000004 w'), os.system('devmem 0x40000008 w')]
+            if int(str(datetime.datetime.now().microsecond)[1]) % 2 == 1:
+                # temp_memory_values = ["0x00000000", "0x40000010", "0x40000010", "0x00000000"]
+                # semaphore, last_written, last_read, next_cycle
+                proc = sub.Popen(["devmem", "0x4000000c", "w"], stdout=sub.PIPE)
+                (out, err) = proc.communicate()
+                temp_memory_values[0] = out[:-1]
+                proc = sub.Popen(["devmem", "0x40000000", "w"], stdout=sub.PIPE)
+                (out, err) = proc.communicate()
+                temp_memory_values[1] = out[:-1]
+                proc = sub.Popen(["devmem", "0x40000004", "w"], stdout=sub.PIPE)
+                (out, err) = proc.communicate()
+                temp_memory_values[2] = '0x{0:0{1}X}'.format((int((out[:-1]), 16) - 4), 8)
+                proc = sub.Popen(["devmem", "0x40000008", "w"], stdout=sub.PIPE)
+                (out, err) = proc.communicate()
+                temp_memory_values[3] = out[:-1]
                 break
         except IndexError:
             continue
