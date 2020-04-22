@@ -1,0 +1,7 @@
+{
+    "RT_1":{
+        "RT_address":"01",
+        "sub_address_or_mode_code":"10",
+        "message":"Some message"
+    }
+}
