@@ -64,7 +64,7 @@
 // declare a global variable to count data words
 
 // positive sync - 100
-// negative sync - 001
+// negative sync - 011
 
 int total_count = 0;
 int receive_count = 0;
@@ -78,9 +78,11 @@ void monitor(int value_at_address)
 	int sync = (917504 & value_at_address) >> 17;
 	// if it is actual command word flag get the count of data words expected
 	// command word flag 0 indicates it was received at ingress.
+
 	if (command_word_flag)
 	{
 		total_count = ((62 & value_at_address) >> 1) + 1;
+		print("Command word -> Reset receive_count\n\r");
 		receive_count = 0;
 	} else
 	{
@@ -89,22 +91,24 @@ void monitor(int value_at_address)
 		// in case of spoofing, command word and status word both will be received at ingress
 		if (sync == 4)
 		{
+			print("Received positive sync\n\r");
 			positive_sync_count = positive_sync_count + 1;
 			if (positive_sync_count > 1)
 			{
-				print("Possible spoofing attack");
+				print("Possible spoofing attack\n\r");
 			}
 			// tracking receive count and total count to check DoS and replay attacks
 		} else
 		{
 			positive_sync_count = 0;
 			receive_count = receive_count + 1;
+			print("Received negative sync\n\r");
 			if ((receive_count > total_count) && (receive_count > 1000))
 			{
-				print("Possible DoS attack");
+				print("Possible DoS attack\n\r");
 			} else if (receive_count > total_count)
 			{
-				print("Possible replay attack");
+				print("Possible replay attack\n\r");
 			}
 		}
 	}
@@ -116,17 +120,23 @@ int main()
 {
     init_platform();
     MEM_TO_READ = 0x4000000C;
+    LAST_MEM_WRITTEN = 0x40000010;
+    NEXT_CYCLE = 0x00000000;
+    SEMAPHORE = 0x00000000;
     int value_at_address;
     print("[Security Monitor] Initialized\n\r");
+    print("Pass this\n\r");
 
     while(1)
     {
+    	print("Here\n\r");
     	// if dump program has cycled around to start writing to the first mem i.e. 0x4000000C
     	if (NEXT_CYCLE == 1)
     	{
+    		print("1\n\r");
     		if ((MEM_TO_READ) < 0x40001fff)
     		{
-			MEM_TO_READ = MEM_TO_READ + 4;
+    			MEM_TO_READ = MEM_TO_READ + 4;
     			value_at_address = (*(volatile u32 *)(MEM_TO_READ));
     			monitor(value_at_address);
     		} else
@@ -136,14 +146,16 @@ int main()
     		}
     	} else
     	{
+    		print("2\n\r");
     		if (LAST_MEM_WRITTEN >= MEM_TO_READ)
     		{
-			MEM_TO_READ = MEM_TO_READ + 4;
+    			MEM_TO_READ = MEM_TO_READ + 4;
     			value_at_address = (*(volatile u32 *)(MEM_TO_READ));
+    			print("Here1\n\r");
     			monitor(value_at_address);
-    			
     		} else
     		{
+    			print("3\n\r");
     			sleep(1);
     		}
     	}
