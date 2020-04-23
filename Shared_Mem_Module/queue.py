@@ -9,10 +9,10 @@ queue = Queue.Queue()
 y = 0
 
 
-def read_tcpdump_data(direction):
+def read_tcpdump_data(direction, port):
     """read tcpdump data from dump.py and write it to queue"""
     tcpdump = TcpDump()
-    tcpdump.start_tcpdump(direction)
+    tcpdump.start_tcpdump(direction, port)
     global queue
     tcpdump.get_dump(queue, direction)
 
@@ -37,6 +37,7 @@ def write_queue_data():
             # print next_writable_address
             x = queue.get()
             x = str(x)
+	    print x
             # command = "devmem " + next_writable_address + " w " + "0x" + str(x)
             '''write data to shared memory'''
             # os.system(command)
@@ -70,32 +71,27 @@ def check_semaphore(semaphore):  # change semaphore to 0x01010101 if running ano
 
 def read_memory_values():
     temp_memory_values = ["", "", "", ""]
-    while True:
-        try:
-            if int(str(datetime.datetime.now().microsecond)[1]) % 2 == 1:
-                # temp_memory_values = ["0x00000000", "0x40000010", "0x40000010", "0x00000000"]
-                # semaphore, last_written, last_read, next_cycle
-                proc = sub.Popen(["devmem", "0x4000000c", "w"], stdout=sub.PIPE)
-                (out, err) = proc.communicate()
-                temp_memory_values[0] = out[:-1]
-                proc = sub.Popen(["devmem", "0x40000000", "w"], stdout=sub.PIPE)
-                (out, err) = proc.communicate()
-                temp_memory_values[1] = out[:-1]
-                proc = sub.Popen(["devmem", "0x40000004", "w"], stdout=sub.PIPE)
-                (out, err) = proc.communicate()
-                temp_memory_values[2] = '0x{0:0{1}X}'.format((int((out[:-1]), 16) - 4), 8)
-                proc = sub.Popen(["devmem", "0x40000008", "w"], stdout=sub.PIPE)
-                (out, err) = proc.communicate()
-                temp_memory_values[3] = out[:-1]
-                break
-        except IndexError:
-            continue
+    # temp_memory_values = ["0x00000000", "0x40000010", "0x40000010", "0x00000000"]
+    # semaphore, last_written, last_read, next_cycle
+    proc = sub.Popen(["devmem", "0x4000000c", "w"], stdout=sub.PIPE)
+    (out, err) = proc.communicate()
+    temp_memory_values[0] = out[:-1]
+    proc = sub.Popen(["devmem", "0x40000000", "w"], stdout=sub.PIPE)    
+    (out, err) = proc.communicate()
+    temp_memory_values[1] = out[:-1]
+    proc = sub.Popen(["devmem", "0x40000004", "w"], stdout=sub.PIPE)
+    (out, err) = proc.communicate()
+    temp_memory_values[2] = '0x{0:0{1}X}'.format((int((out[:-1]), 16) - 4), 8)
+    proc = sub.Popen(["devmem", "0x40000008", "w"], stdout=sub.PIPE)
+    (out, err) = proc.communicate()
+    temp_memory_values[3] = out[:-1]
+    print temp_memory_values
     return temp_memory_values
 
 
-t1 = threading.Thread(target=read_tcpdump_data, args=("in",))
+t1 = threading.Thread(target=read_tcpdump_data, args=("out","2001"))
 t1.start()
-t2 = threading.Thread(target=read_tcpdump_data, args=("out",))
+t2 = threading.Thread(target=read_tcpdump_data, args=("in", "2000"))
 t2.start()
 t3 = threading.Thread(target=write_queue_data, args=())
 t3.start()

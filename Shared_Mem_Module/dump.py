@@ -3,8 +3,8 @@ import math
 
 
 class TcpDump:
-    def start_tcpdump(self, direction="in"):
-        self.p = sub.Popen(('tcpdump', '-AlX', '-q', '-i', 'eth0', 'udp', 'port', '2000', '--direction', direction), stdout=sub.PIPE)
+    def start_tcpdump(self, direction="in", port=2000):
+        self.p = sub.Popen(('tcpdump', '-AlX', '-q', '-i', 'eth0', 'udp', 'port', port, '--direction', direction), stdout=sub.PIPE)
         
     def get_dump(self, queue, direction="in"):
         i = 0
@@ -15,8 +15,8 @@ class TcpDump:
                 str2 = row.rstrip()[10:49].replace(' ', '')
                 hex_str = "".join([str1, str2])
                 if direction == "out":
-                    if hex_str[:3] == "100":
-                        hex_str = "1" + hex_str
+                    if hex_str[:6] == "313030":
+                        hex_str = "31" + hex_str
                         queue.put(self.convert_hex_to_bin(hex_str))
                 elif direction == "in":
                     queue.put(self.convert_hex_to_bin(hex_str))
