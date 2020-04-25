@@ -1,5 +1,6 @@
 import subprocess as sub
 import math
+from time import sleep
 
 
 class TcpDump:
@@ -19,6 +20,8 @@ class TcpDump:
                         hex_str = "31" + hex_str
                         queue.put(self.convert_hex_to_bin(hex_str))
                 elif direction == "in":
+                    if hex_str[:6] == "313030":
+                        sleep(0.2)
                     queue.put(self.convert_hex_to_bin(hex_str))
             if 'IP' in row.strip():
                 i = 0
