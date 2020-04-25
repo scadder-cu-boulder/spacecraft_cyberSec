@@ -55,10 +55,11 @@ class Malicious_RT:
     
     def dos_attack(self):
         print("Performing DoS attack")
+        data_word_frame = "00100001101011010110"
         while True:
             time.sleep(1)
-            for captured_packet in self.captured_packets:
-                self.send_packet(captured_packet)
+            #for captured_packet in self.captured_packets:
+            self.send_packet(data_word_frame)
                 # print(captured_packet)
     
     def spoofing_attack(self):
