@@ -51,7 +51,7 @@ class MessageLayerAnalyzerRT:
                     communication_frames.append(
                         self._construct_data_word(
                             self.lookup_memory["{0:02x}".format(
-                                int(cmd_word[3:5], 16)+i)].encode("hex")))
+                                int(cmd_word[3:5], 16)+i).upper()].encode("hex")))
                 return communication_frames
 
     def interprete_incoming_frame(self, incoming_frame):
