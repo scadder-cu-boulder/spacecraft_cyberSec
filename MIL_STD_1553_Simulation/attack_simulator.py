@@ -90,13 +90,14 @@ class Malicious_RT:
                 # capture_agent.replay_attack()
 
     def send_packet(self, message):
-        destination_ip = "255.255.255.255"
-        destination_port = 2000
+        destination_ip = "10.0.0.255"
+        destination_port = [2000, 2001]
         socket_variable = \
             socket.socket(
                 socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         socket_variable.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-        socket_variable.sendto(message, (destination_ip, destination_port))        
+        for port in destination_port:
+            socket_variable.sendto(message, (destination_ip, port))        
 
 
 if __name__ == "__main__":
