@@ -6,3 +6,4 @@ Below is the block diagram for security monitor implementation.
 
 ![alt text](https://github.com/prgu6170/spacecraft_cyberSec/blob/master/security_monitor/security_monitor.jpeg)
 
+DoS attacks are detected of the received packet count is much greater than expected. So the security monitor for detects it as Replay attacks and then escalates the warning to DoS.
