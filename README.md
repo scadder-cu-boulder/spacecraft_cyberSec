@@ -6,4 +6,4 @@ Spacecrafts and satellite systems are widely deployed in commercial and military
 
 Below is the functional block diagram of the project. Each module should be loaded to the respective hardware shown as in the diagram below.
 
-![alt text](https://github.com/prgu6170/spacecraft_cyberSec/blob/master/fbd.jpeg)
+![alt text](https://github.com/prgu6170/spacecraft_cyberSec/blob/master/functional_block_diagram.jpeg)
