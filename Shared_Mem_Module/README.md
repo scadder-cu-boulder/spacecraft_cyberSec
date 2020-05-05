@@ -9,7 +9,7 @@ Block Diagram
 ------
 ![Function Block Diagram of Shared Memory Module](https://github.com/prgu6170/spacecraft_cyberSec/blob/master/Shared_Mem_Module/shared_mem_module.jpeg)
 
-Setting Up the Shared Memory Module
+Running the Shared Memory Module
 ------
 To start the Shared Memory Module, you must have the Bus_Controller and Remote_Terminal simulators already running. The code can be then launched by entering the Shared_Mem_Module directory and executing the following command
 ```
